@@ -21,6 +21,7 @@ const bookRoute = require('./route/bookRouter')
 const globalErrorHandler = require('./controller/errorController');
 const userRouter = require('./route/userRouter')
 const AppError = require('./utils/appError');
+const filterRoute = require('./route/filterRouter');
 
 //Connect database
 mongoose.connect(process.env.DATABASE_LOCAL, {
@@ -36,7 +37,7 @@ mongoose.connect(process.env.DATABASE_LOCAL, {
     })
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
-app.use(cors({origin: 'http://localhost:3000'}));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(cookieParser())
 app.use(express.static('public'))
 app.use(express.static(path.join(__dirname + 'public')));
@@ -52,6 +53,7 @@ app.use(express.static(path.join(__dirname + '/public/book')));
 
 app.use('/api/v1/book', bookRoute);
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/filter', filterRoute);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this Server`, 404));
