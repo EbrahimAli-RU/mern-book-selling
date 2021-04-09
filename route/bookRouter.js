@@ -13,11 +13,11 @@ router.route('/')
     .get(bookController.getBooks);
 
 router.route('/:userId/ownBooks')
-        .get(bookController.ownBook);
+    .get(bookController.ownBook);
 
 router.route('/:bookId')
     .get(bookController.getBook)
     .patch(bookController.updateBook)
-    .delete(bookController.deleteBook);
+    .delete(authController.protect,bookController.deleteBook);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const FacebookStrategy = require('passport-facebook').Strategy
 
 const User = require('../model/userModel');
 const catchAsync = require('../utils/catchAsync')
@@ -35,6 +36,8 @@ exports.signup = catchAsync(async (req, res, next) => {
         }
     })
 })
+
+
 
 exports.signin = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;

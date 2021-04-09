@@ -11,7 +11,7 @@ const devEnvironment = (err, res) => {
 }
 
 const prodEnvironment = (err, res) => {
-    if(err.isOperational) {
+    if (err.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
             message: err.message
@@ -22,14 +22,14 @@ const prodEnvironment = (err, res) => {
             message: 'Something went wrong.'
         })
     }
-    
+
 }
 
 const duplicateKeyHandler = err => {
     let x;
     let txt = "";
     const duplicateKeys = Object.keys(err.keyValue);
-    for(x in duplicateKeys) {
+    for (x in duplicateKeys) {
         txt += duplicateKeys[x] + ' ';
     }
     return new AppError(`${txt} has been taken.`, 400);
@@ -50,26 +50,28 @@ const expireTokenHandler = err => {
 module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
-    
-    if(process.env.ENVIRONMENT === 'development') {
+
+    if (process.env.ENVIRONMENT === 'development') {
         devEnvironment(err, res);
     }
-    if(process.env.ENVIRONMENT === 'production') {
+    if (process.env.ENVIRONMENT === 'production') {
 
-        if(err.code === 11000) {
+        if (err.code === 11000) {
+            console.log('11000')
             err = duplicateKeyHandler(err)
         }
-        if(err.name === 'ValidationError') {
+        if (err.name === 'ValidationError') {
+            console.log('CHECK')
             err = validationErrorHandler(err);
         }
-        if(err.name === 'JsonWebTokenError') {
+        if (err.name === 'JsonWebTokenError') {
             err = invalidTokenHandler(err);
         }
-        if(err.name === 'TokenExpiredError') {
+        if (err.name === 'TokenExpiredError') {
             err = expireTokenHandler(err);
         }
-        
+
         prodEnvironment(err, res);
     }
-    
+
 }

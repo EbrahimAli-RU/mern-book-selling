@@ -70,6 +70,20 @@ exports.addWishList = catchAsync(async (req, res, next) => {
     })
 })
 
+exports.updateWishList = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id).populate({
+        path: 'wishList',
+    })
+    console.log(req.body.id)
+    user.wishList = user.wishList.filter(el => el._id.toString() !== req.body.id)
+    console.log(user.wishList)
+    await user.save({ validateBeforeSave: false });
+    res.status(200).json({
+        status: 'success',
+        data: user.wishList
+    })
+})
+
 exports.getWishList = catchAsync(async (req, res, next) => {
     const user = await User.findById(req.user.id).populate({
         path: 'wishList',

@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     lastName: {
         type: String,
         trim: true,
-        lowercase:true
+        lowercase: true
     },
     email: {
         type: String,
@@ -23,67 +23,56 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-//    phone: {
-//        type: String,
-//        required: [true, 'Please enter your phone number'],
-//        unique: [true, 'This phone number is in use'],
-//        validate: {
-//            validator: function(value) {
-//                return validator.isMobilePhone(value, 'bn-BD');
-//            },
-//            message: 'Please enter phone number correctly'
-//        },
-//    },
-   password: {
-       type: String,
-       required: [true, 'Required'],
-       minlength: [8,`Password length would be at least 8`],
-       select: false
-   },
-   role: {
-       type: String,
-       enum: ['admin', 'user'],
-       default: 'user'
-   },
-   confirmPassword: {
-       type: String,
-       required: true,
-       minlength: 8,
-       validate: {
-        validator: function(value) {
-               return this.password === value
-           },
-           message: 'Confirm password is not same as password'
-       }
-   },
-   wishList: [{
-       type: mongoose.Schema.ObjectId,
-       ref: 'book'
-   }],
-   photo: String,
-   passwordChangeAt: Date,
-   passwordResetToken: String,
-   passwordResetExpire: Date
+    password: {
+        type: String,
+        required: [true, 'Required'],
+        minlength: [8, `Password length would be at least 8`],
+        select: false
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    },
+    confirmPassword: {
+        type: String,
+        required: true,
+        minlength: 8,
+        validate: {
+            validator: function (value) {
+                return this.password === value
+            },
+            message: 'Confirm password is not same as password'
+        }
+    },
+    wishList: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'book'
+    }],
+    photo: String,
+    passwordChangeAt: Date,
+    passwordResetToken: String,
+    passwordResetExpire: Date
 })
 
-userSchema.pre('save', async function(next) {
-    if(!this.isModified('password')) return next();
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
 
-    this.password = await bcrtptjs.hash( this.password, 12);
+    this.password = await bcrtptjs.hash(this.password, 12);
     this.confirmPassword = undefined;
     next();
 })
 
-userSchema.pre('save', function(next) {
-    if(!this.isModified('password') || this.isNew) return next();
+userSchema.pre('save', function (next) {
+    if (!this.isModified('password') || this.isNew) return next();
 
     this.passwordChangeAt = Date.now() - 1000;
     next();
 })
 
-userSchema.methods.passwordChangedAfter = async function(JWTtimeStamp) {
+userSchema.methods.passwordChangedAfter = async function (JWTtimeStamp) {
 
-    if(this.passwordChangeAt) {
+    if (this.passwordChangeAt) {
         const passwordChangeAtTimeStamp = parseInt(this.passwordChangeAt.getTime() / 1000);
         return JWTtimeStamp < passwordChangeAtTimeStamp;
     }
@@ -92,17 +81,17 @@ userSchema.methods.passwordChangedAfter = async function(JWTtimeStamp) {
 }
 
 
-userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
     return await bcrtptjs.compare(candidatePassword, userPassword);
 }
 
 
-userSchema.methods.createpasswordResetToken = function() {
+userSchema.methods.createpasswordResetToken = function () {
     const resetToken = crypto.randomBytes(32).toString('hex');
 
     this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
     this.passwordResetExpire = Date.now() + 5 * 60 * 1000;
-    
+
     return resetToken;
 }
 

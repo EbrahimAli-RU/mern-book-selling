@@ -4,67 +4,84 @@ const slugify = require('slugify');
 const bookSchema = new mongooose.Schema({
     bookName: {
         type: String,
-        required: [true, `A book must have a name.`],
+        required: [true, `Book name is required`],
         trim: true
     },
     authorName:
     {
         type: String,
-        required: [true, `A book Must have Author.`],
+        required: [true, `Author name is required`],
         trim: true
     },
     edition: {
         type: String,
         trim: true,
+        required: [true, `Edition is required`],
     },
     publication: {
         type: String,
-        trim: true
+        trim: true,
+        required: [true, `Publication is required`],
     },
     numberOfPage: {
         type: Number,
-        required: [true, 'Please provide Number of page']
+        min: [0, 'Page must be greater than 0'],
+        required: [true, `Page number is required`],
     },
-    missingPage: String,
-    seller: {
-        division: {
-            type: String,
-            lowercase: true,
-            trim: true,
-            required: true
-        },
-        distict: {
-            type: String,
-            lowercase: true,
-            trim: true,
-            required: true
-        },
-        subDistict: {
-            type: String,
-            lowercase: true,
-            trim: true,
-            required: true
-        },
-        name: {
-            type: String
-        },
-        mobile: {
-            type: String
-        },
+    missingPage: {
+        type: String,
+        required: [true, `Missing page is required`],
+    },
+    // seller: {
+
+    // },
+    division: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        required: [true, `Division is required`],
+    },
+    distict: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        required: [true, `Distict is required`],
+    },
+    subDistict: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        required: [true, `Sub-distict is required`],
+    },
+    name: {
+        type: String,
+        required: [true, `Name is required`],
+    },
+    mobile: {
+        type: Number,
+        required: [true, `Mobile is required`],
     },
     language: {
         type: String,
+        enum: ['English', 'Bangla'],
+        required: [true, `Language is required`],
     },
     price: {
         type: Number,
-        required: true,
+        min: [0, 'price Must be greater than 0'],
+        required: [true, `Price is required`],
     },
     coverphoto: {
         type: String,
-        default: 'default.jpeg'
+        default: 'default.jpeg',
+        required: [true, `This field is required`],
     },
     owner: String,
-    photo: String,
+    photos: [{
+        type: String,
+        default: 'default.jpeg',
+        required: [true, `This field is required`],
+    }],
     slug: String
 })
 

@@ -41,14 +41,13 @@ const upload = multer({
 // exports.uploadCoverPhoto = upload.single('coverPhoto');
 exports.uploadCoverPhoto = upload.fields([
     { name: 'coverphoto', maxCount: 1 },
-    { name: 'photo', maxCount: 1 }
+    { name: 'photos', maxCount: 3 }
 ])
 
 exports.resizeCoverPhoto = catchAsync(async (req, res, next) => {
     // 1. Cover photo
-    if (!req.files.coverphoto && !req.files.photo) return next();
-    // const imageCover = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
-    const imageCover = `Coverphoto-${Date.now()}.jpeg`
+    if (!req.files.coverphoto || !req.files.photos) return next();
+    const imageCover = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
     await sharp(req.files.coverphoto[0].buffer)
         .resize(400, 600)
         .toFormat('jpeg')
@@ -57,25 +56,25 @@ exports.resizeCoverPhoto = catchAsync(async (req, res, next) => {
     req.body.coverphoto = imageCover
 
     // 2. photos
-    // req.body.photo = [];
-    // await Promise.all(req.files.photo.map(async (el, i) => {
-    const fileName = `otherBookphoto-${Date.now()}.jpeg`
-    await sharp(req.files.photo[0].buffer)
-        .resize(400, 600)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/book/${fileName}`);
+    req.body.photos = [];
+    await Promise.all(req.files.photos.map(async (el, i) => {
+        const fileName = `otherBookphoto-${req.user.id}-${Date.now()}-${i}.jpeg`
+        await sharp(req.files.photos[i].buffer)
+            .resize(400, 600)
+            .toFormat('jpeg')
+            .jpeg({ quality: 90 })
+            .toFile(`public/book/${fileName}`);
 
-    // req.body.photo.push(fileName);
-    req.body.photo = fileName
-    // }))
+        req.body.photos.push(fileName);
+        // req.body.photos = fileName
+    }))
     next();
 })
 
 exports.createBook = catchAsync(async (req, res, next) => {
     req.body.owner = req.user.id
+    console.log(req.files)
     const book = await Book.create(req.body);
-    console.log(book)
     res.status(201).json({
         status: 'success',
         data: {
