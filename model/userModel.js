@@ -5,15 +5,10 @@ const validator = require('validator');
 const bcrtptjs = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    firstName: {
+    userName: {
         type: String,
         required: [true, 'Please enter your name'],
         trim: true
-    },
-    lastName: {
-        type: String,
-        trim: true,
-        lowercase: true
     },
     email: {
         type: String,

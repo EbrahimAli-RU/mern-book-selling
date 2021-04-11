@@ -125,6 +125,7 @@ exports.updateBook = catchAsync(async (req, res, next) => {
 })
 
 exports.getBooks = catchAsync(async (req, res, next) => {
+	console.log(req.query)
     let gg = `/^${req.query.slug}/i`
     gg = eval(gg)
     let queryObj = { ...req.query }
@@ -132,7 +133,7 @@ exports.getBooks = catchAsync(async (req, res, next) => {
     excludedField.forEach(el => delete queryObj[el]);
     queryObj = { ...queryObj, slug: { $regex: gg } }
     bookQuery = Book.find(queryObj)
-        .select('bookName edition coverphoto price authorName slug numberOfPage seller');
+        .select('bookName coverphoto price slug division distict subDistict');
     //Sort by price 
     if (req.query.sort) {
         bookQuery = bookQuery.sort(req.query.sort);
