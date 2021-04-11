@@ -73,7 +73,6 @@ exports.resizeCoverPhoto = catchAsync(async (req, res, next) => {
 
 exports.createBook = catchAsync(async (req, res, next) => {
     req.body.owner = req.user.id
-    console.log(req.files)
     const book = await Book.create(req.body);
     res.status(201).json({
         status: 'success',
@@ -84,7 +83,6 @@ exports.createBook = catchAsync(async (req, res, next) => {
 })
 
 exports.ownBook = catchAsync(async (req, res, next) => {
-    console.log(req.params.userId)
     const books = await Book.find({ owner: req.params.userId });
     res.status(200).json({
         status: 'success',
@@ -125,7 +123,6 @@ exports.updateBook = catchAsync(async (req, res, next) => {
 })
 
 exports.getBooks = catchAsync(async (req, res, next) => {
-	console.log(req.query)
     let gg = `/^${req.query.slug}/i`
     gg = eval(gg)
     let queryObj = { ...req.query }
