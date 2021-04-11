@@ -4,8 +4,14 @@ const router = express.Router();
 const authController = require('../controller/authController');
 const wishListController = require('../controller/wishListController');
 
+router.use(authController.protect);
+
 router.route('/')
-    .post(authController.protect, wishListController.addToWishList)
+    .post(wishListController.addToWishList)
+    .get(wishListController.getWishList)
+
+router.delete('/')
+    .delete(wishListController.deleteFromWishList)
 
 
 module.exports = router
