@@ -13,7 +13,13 @@ const wishListSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+    photo: {
+        type: String,
+        required: true
     }
 }, { timestamps: true })
 
 const wishList = mongoose.model('wishList', wishListSchema);
+
+module.exports = wishList
