@@ -18,8 +18,5 @@ router.patch('/updateMe',
     userController.resizeUserPhoto,
     userController.updateMe);
 
-router.post('/addWishList', authController.protect, userController.addWishList);
-router.post('/updatewishlist', authController.protect, userController.updateWishList)
-router.get('/wishList', authController.protect, userController.getWishList);
 
 module.exports = router;

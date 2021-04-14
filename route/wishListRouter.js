@@ -8,7 +8,8 @@ router.use(authController.protect);
 
 router.route('/')
     .post(wishListController.addToWishList)
-    .get(wishListController.getWishList)
+
+router.route('/:userId').get(wishListController.getWishList)
 
 router.route('/:wishListId')
     .delete(wishListController.deleteFromWishList)

@@ -7,8 +7,8 @@ const authController = require('./../controller/authController');
 router.route('/')
     .post(
         authController.protect,
-        bookController.uploadCoverPhoto,
-        bookController.resizeCoverPhoto,
+        bookController.uploadBookPhotos,
+        bookController.resizeBookPhotos,
         bookController.createBook)
     .get(bookController.getBooks);
 
@@ -18,6 +18,6 @@ router.route('/:userId/ownBooks')
 router.route('/:bookId')
     .get(bookController.getBook)
     .patch(bookController.updateBook)
-    .delete(authController.protect,bookController.deleteBook);
+    .delete(authController.protect, bookController.deleteBook);
 
 module.exports = router;

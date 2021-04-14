@@ -16,7 +16,7 @@ exports.addToWishList = catchAsync(async (req, res, next) => {
 
 exports.getWishList = catchAsync(async (req, res, next) => {
 
-    const wishLists = await WishList.find({ user: req.user.id });
+    const wishLists = await WishList.find({ user: req.params.userId });
 
     res.status(200).json({
         status: 'success',

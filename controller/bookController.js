@@ -39,21 +39,21 @@ const upload = multer({
 
 // For single photo and access req.file
 // exports.uploadCoverPhoto = upload.single('coverPhoto');
-exports.uploadCoverPhoto = upload.fields([
+exports.uploadBookPhotos = upload.fields([
     { name: 'coverphoto', maxCount: 1 },
     { name: 'photos', maxCount: 3 }
 ])
 
-exports.resizeCoverPhoto = catchAsync(async (req, res, next) => {
+exports.resizeBookPhotos = catchAsync(async (req, res, next) => {
     // 1. Cover photo
-    if (!req.files.coverphoto || !req.files.photos) return next();
-    const imageCover = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
+    if (!req.files.coverphoto && !req.files.photos) return next(new AppError('Please Upload Images!', 400));
+    console.log(req.files)
+    req.body.coverphoto = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
     await sharp(req.files.coverphoto[0].buffer)
         .resize(400, 600)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`public/book/${imageCover}`);
-    req.body.coverphoto = imageCover
+        .toFile(`public/book/${req.body.coverphoto}`);
 
     // 2. photos
     req.body.photos = [];
@@ -73,6 +73,7 @@ exports.resizeCoverPhoto = catchAsync(async (req, res, next) => {
 
 exports.createBook = catchAsync(async (req, res, next) => {
     req.body.owner = req.user.id
+    console.log(req.body)
     const book = await Book.create(req.body);
     res.status(201).json({
         status: 'success',
