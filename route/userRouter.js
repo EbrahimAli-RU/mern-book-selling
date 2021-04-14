@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+const wishlistRouter = require('./wishListRouter')
 const authController = require('../controller/authController');
 const userController = require('../controller/userController');
+
+router.use('/wishlist', wishlistRouter)
 
 router.route('/signup').post(authController.signup);
 router.post('/signin', authController.signin);

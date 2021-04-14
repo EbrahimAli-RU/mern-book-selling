@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const authController = require('../controller/authController');
 const wishListController = require('../controller/wishListController');
@@ -10,7 +10,7 @@ router.route('/')
     .post(wishListController.addToWishList)
     .get(wishListController.getWishList)
 
-router.delete('/')
+router.route('/:wishListId')
     .delete(wishListController.deleteFromWishList)
 
 

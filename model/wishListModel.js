@@ -17,8 +17,15 @@ const wishListSchema = new mongoose.Schema({
     photo: {
         type: String,
         required: true
+    },
+    bookId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'book',
+        required: true
     }
 }, { timestamps: true })
+
+wishListSchema.index({ user: 1, bookId: 1 }, { unique: true })
 
 const wishList = mongoose.model('wishList', wishListSchema);
 
