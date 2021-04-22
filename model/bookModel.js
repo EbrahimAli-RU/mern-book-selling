@@ -35,23 +35,23 @@ const bookSchema = new mongooose.Schema({
     // seller: {
 
     // },
-    division: {
+    region: {
         type: String,
         lowercase: true,
         trim: true,
-        required: [true, `Division is required`],
+        required: [true, `Region is required`],
     },
-    distict: {
+    city: {
         type: String,
         lowercase: true,
         trim: true,
-        required: [true, `Distict is required`],
+        required: [true, `City is required`],
     },
-    subDistict: {
+    area: {
         type: String,
         lowercase: true,
         trim: true,
-        required: [true, `Sub-distict is required`],
+        required: [true, `Area is required`],
     },
     name: {
         type: String,

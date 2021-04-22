@@ -84,7 +84,8 @@ exports.createBook = catchAsync(async (req, res, next) => {
 })
 
 exports.ownBook = catchAsync(async (req, res, next) => {
-    const books = await Book.find({ owner: req.params.userId });
+    const books = await Book.find({ owner: req.params.userId })
+        .select('bookName coverphoto price');
     res.status(200).json({
         status: 'success',
         data: {
