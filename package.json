@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "app": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently\"npm run start\"\"npm run client\""
@@ -22,6 +22,10 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.6",
+    "helmet": "^4.5.0",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.23",
     "multer": "^1.4.2",
@@ -29,6 +33,7 @@
     "passport-facebook": "^3.0.0",
     "sharp": "^0.25.4",
     "slugify": "^1.4.4",
-    "validator": "^13.1.1"
+    "validator": "^13.1.1",
+    "xss-clean": "^0.1.1"
   }
 }
