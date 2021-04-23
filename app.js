@@ -3,6 +3,7 @@ const cors = require('cors')
 const express = require('express');
 const cookieParser = require('cookie-parser')
 const rateLimit = require('express-rate-limit')
+const helmet = require('helmet')
 const app = express();
 
 const bookRoute = require('./route/bookRouter')
@@ -12,6 +13,8 @@ const AppError = require('./utils/appError');
 const filterRoute = require('./route/filterRouter');
 
 //GLOBAL MIDDLEWARE
+//SET SEQUERTY HTTP HEADER
+app.use(helmet())
 //API REQUEST LIMITING TO PREVENT HEAVEY REQUEST 
 const limiter = rateLimit({
     max: 1000,
@@ -20,11 +23,13 @@ const limiter = rateLimit({
 })
 
 app.use('/api', limiter)
-
+//BODY PARSER, READING DATA FROM BODY
+app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json());
+//CORE
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(cookieParser())
+//SERVING STATIC FILE
 app.use(express.static('public'))
 app.use(express.static(path.join(__dirname + 'public')));
 app.use(express.static(path.join(__dirname + '/public/CoverPhoto')));
