@@ -26,17 +26,23 @@ const prodEnvironment = (err, res) => {
 }
 
 const duplicateKeyHandler = err => {
-    let x;
-    let txt = "";
-    const duplicateKeys = Object.keys(err.keyValue);
-    for (x in duplicateKeys) {
-        txt += duplicateKeys[x] + ' ';
+    if (err.keyPattern.user === 1 & err.keyPattern.bookId === 1) {
+        return new AppError(`Already in Your Wishlist :)`, 400);
+    } else {
+        let x;
+        let txt = "";
+        const duplicateKeys = Object.keys(err.keyValue);
+        for (x in duplicateKeys) {
+            txt += duplicateKeys[x] + ' ';
+        }
+        return new AppError(`${txt} has been taken.`, 400);
     }
-    return new AppError(`${txt} has been taken.`, 400);
+
 }
 
 const validationErrorHandler = err => {
-    return new AppError(`${err.message}`, 400);
+    const message = err.message.split(':')[2]
+    return new AppError(`${message}`, 400);
 }
 
 const invalidTokenHandler = err => {
