@@ -18,6 +18,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     if (checkUser) {
         return next(new AppError('This Email is in used! Please try another one', 404))
     }
+    console.log(req.body)
     const user = await User.create(req.body);
     const token = signToken(user._id);
     const cookieOption = {
@@ -60,7 +61,8 @@ exports.signin = catchAsync(async (req, res, next) => {
         status: 'success',
         data: {
             user: {
-                _id: user._id
+                _id: user._id,
+                userName: user.userName
             },
             token
         }
@@ -68,12 +70,13 @@ exports.signin = catchAsync(async (req, res, next) => {
 })
 
 exports.protect = catchAsync(async (req, res, next) => {
-    let token, to = true;
+
+    let token;
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-        to = false
+        token = req.headers.authorization.split(' ')[1]
     }
-    if (to || token === 'null') {
+
+    if (!token || token === 'null') {
         return next(new AppError(`You are not logged in,Please login`, 401));
     }
 
@@ -88,6 +91,11 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError(`You have recently changed your password, please log in again`, 401));
     }
     req.user = loggedInUser;
+    next();
+})
+
+exports.test = catchAsync(async (req, res, next) => {
+    res.locals.namefg = 'Ebrahim'
     next();
 })
 
