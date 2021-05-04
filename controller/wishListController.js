@@ -5,12 +5,14 @@ const AppError = require('./../utils/appError');
 exports.addToWishList = catchAsync(async (req, res, next) => {
 
     req.body.user = req.user.id
-    console.log('CHECK', req.user.id, req.body)
     const data = await WishList.create(req.body)
 
     res.status(201).json({
         status: 'success',
-        data: data
+        data: {
+            data: data,
+            message: 'Added to Your Wishlist:)'
+        }
     })
 })
 
