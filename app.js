@@ -37,7 +37,7 @@ app.use(mongoSanitize())
 app.use(xss())
 
 //CORE
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(cookieParser())
 
 //PREVENT PARAMETER POLUTION
@@ -48,6 +48,9 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.static(path.join(__dirname + '/public/CoverPhoto')));
 app.use(express.static(path.join(__dirname + '/public/book')));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'))
+}
 
 //ROUTES
 app.use('/api/v1/book', bookRoute);

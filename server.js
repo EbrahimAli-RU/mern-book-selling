@@ -11,7 +11,7 @@ const app = require('./app')
 const mongoose = require('mongoose');
 
 //Connect database
-mongoose.connect(process.env.DATABASE_LOCAL, {
+mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_LOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -24,7 +24,7 @@ mongoose.connect(process.env.DATABASE_LOCAL, {
     })
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
     console.log(`Listing on port ${port}`);
 })

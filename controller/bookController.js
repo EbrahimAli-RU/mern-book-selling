@@ -4,22 +4,6 @@ const sharp = require('sharp');
 const Book = require('./../model/bookModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-// const { delete } = require('../route/bookRouter');
-
-
-//In case you don't need to process photo before save to DB you
-//Can directly save to Database
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/coverPhoto');
-//     },
-//     filename: (req, file, cb) => {
-//         const ext = file.mimetype.split('/')[1];
-//         cb(null, `Coverphoto-${req.user.id}-${Date.now()}.${ext}`);
-//     }
-// })
-
 
 //If you need to process before save to DB
 const storage = multer.memoryStorage();
@@ -43,19 +27,16 @@ exports.uploadBookPhotos = upload.fields([
     { name: 'coverphoto', maxCount: 1 },
     { name: 'photos', maxCount: 3 }
 ])
-
-exports.resizeBookPhotos = catchAsync(async (req, res, next) => {
-    // 1. Cover photo
-    if (!req.files.coverphoto && !req.files.photos) return next(new AppError('Please Upload Images!', 400));
-    console.log(req.files)
+const coverPhotoUploader = async (req) => {
     req.body.coverphoto = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
     await sharp(req.files.coverphoto[0].buffer)
         .resize(400, 600)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
         .toFile(`public/book/${req.body.coverphoto}`);
+}
 
-    // 2. photos
+const otherPhotoUploader = async (req) => {
     req.body.photos = [];
     await Promise.all(req.files.photos.map(async (el, i) => {
         const fileName = `otherBookphoto-${req.user.id}-${Date.now()}-${i}.jpeg`
@@ -68,7 +49,32 @@ exports.resizeBookPhotos = catchAsync(async (req, res, next) => {
         req.body.photos.push(fileName);
         // req.body.photos = fileName
     }))
+}
+
+exports.resizeBookPhotos = catchAsync(async (req, res, next) => {
+
+    if (!req.files.coverphoto && !req.files.photos) return next(new AppError('Please Upload Images!', 400));
+    // 1. Cover photo
+    await coverPhotoUploader(req)
+    // 2. photos
+    await otherPhotoUploader(req)
     next();
+})
+
+exports.resizeBookPhotoForUpdate = catchAsync(async (req, res, next) => {
+    if (req.files.coverphoto && req.files.photos) {
+        await coverPhotoUploader(req);
+        await otherPhotoUploader(req);
+        next();
+    } else if (req.files.coverphoto) {
+        await coverPhotoUploader(req);
+        next()
+    } else if (req.files.photos) {
+        await otherPhotoUploader(req);
+        next()
+    } else {
+        next();
+    }
 })
 
 exports.createBook = catchAsync(async (req, res, next) => {
@@ -113,6 +119,7 @@ exports.deleteBook = catchAsync(async (req, res, next) => {
 exports.updateBook = catchAsync(async (req, res, next) => {
     const book = await Book.findByIdAndUpdate(req.params.bookId, req.body,
         { new: true, runValidators: true });
+    console.log(req.body)
     if (!book) {
         return next(new AppError(`Page not found`, 404));
     }
@@ -148,10 +155,7 @@ exports.getBooks = catchAsync(async (req, res, next) => {
 })
 
 exports.getBook = catchAsync(async (req, res, next) => {
-    const book = await Book.findById(req.params.bookId).populate({
-        path: 'owner',
-        select: '-__v -passwordChangeAt -role'
-    });
+    const book = await Book.findById(req.params.bookId)
     if (!book) {
         return next(new AppError(`Page not found`, 404));
     }

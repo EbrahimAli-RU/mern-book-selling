@@ -15,9 +15,13 @@ router.route('/')
 router.route('/:userId/ownBooks')
     .get(bookController.ownBook);
 
+
 router.route('/:bookId')
     .get(bookController.getBook)
-    .patch(bookController.updateBook)
+    .patch(authController.protect,
+        bookController.uploadBookPhotos,
+        bookController.resizeBookPhotoForUpdate,
+        bookController.updateBook)
     .delete(authController.protect, bookController.deleteBook);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const wishListController = require('../controller/wishListController');
 router.use(authController.protect);
 
 router.route('/')
-    .post(wishListController.addToWishList)
+    .post(authController.protect, wishListController.addToWishList)
 
 router.route('/:userId').get(wishListController.getWishList)
 
