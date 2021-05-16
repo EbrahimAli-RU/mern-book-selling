@@ -41,7 +41,7 @@ export const fetchBook = (searchBy = '', filter = '') => {
         axios.get(fullUrl).then(res => {
             dispatch(successBookFetching(res.data.data.books));
         }).catch(err => {
-            dispatch(failBookFetching())
+            dispatch(failBookFetching(err))
         })
     }
 }
