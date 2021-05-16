@@ -11,7 +11,7 @@ const app = require('./app')
 const mongoose = require('mongoose');
 
 //Connect database
-mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_LOCAL, {
+mongoose.connect(process.env.DATABASE_LOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
