@@ -17,7 +17,7 @@ const filterRoute = require('./route/filterRouter');
 
 //GLOBAL MIDDLEWARE
 //SET SEQUERTY HTTP HEADER
-app.use(helmet())
+// app.use(helmet())
 //API REQUEST LIMITING TO PREVENT HEAVEY REQUEST 
 const limiter = rateLimit({
     max: 1000,
@@ -49,7 +49,11 @@ app.use(express.static(path.join(__dirname + '/public/CoverPhoto')));
 app.use(express.static(path.join(__dirname + '/public/book')));
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'))
+    app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    });
 }
 
 //ROUTES

@@ -11,7 +11,8 @@ const app = require('./app')
 const mongoose = require('mongoose');
 
 //Connect database
-mongoose.connect(process.env.DATABASE_LOCAL, {
+const url = `mongodb+srv://ebrahim:qtp8d4ep@book-selling.67wno.mongodb.net/book-selling?retryWrites=true&w=majority`
+mongoose.connect(url, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -24,7 +25,7 @@ mongoose.connect(process.env.DATABASE_LOCAL, {
     })
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log(`Listing on port ${port}`);
 })
