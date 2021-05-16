@@ -7,11 +7,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "cd client && npm install",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run client-install && npm run build"
   },
   "keywords": [],
   "author": "",
