@@ -1,0 +1,153 @@
+//Overall Page layout
+.div__wrapper {
+    margin-top: -2rem;
+}
+.sell-book__content {
+    width: 86%;
+    // height: 95vh;
+    margin: auto;  
+    position: relative;  
+    padding-top: 2rem;
+    @include respond(tab-land) {
+        width: 88%;
+    }
+    @include respond(tab-port) {
+        width: 96%;
+    }
+    @media (max-width: 680px) {
+        width: 100%;
+    }
+    
+}
+
+//Back and next button
+.sell__button {
+    border: none;
+    padding: .8rem 4rem;
+    background-color: var(--color-primary-1);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    border-radius: 2px;
+    transition: all .3s;
+    // margin-bottom: 2rem;
+
+    &:hover {
+        transform: translateY(4px);
+    }
+    &:active {
+        transform: translateY(-4px);
+    }
+    
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        transform: translateY(0);
+        cursor: not-allowed;
+    }
+}
+
+.back {
+
+}
+
+.next {
+    float: right;
+}
+// responsible for missing page input 
+.sell__book{
+    &-missingPage-div {
+        width: 46%; 
+        position: absolute; 
+        top: 30%; 
+        left: 50%; 
+        display: inline-block; 
+        margin-left: 8%;
+    }
+    &-missingPage-title {
+        margin-top: 0px; 
+        display: inline-block;
+    }
+    &-missingPage-input {
+        margin: 0 .5rem 0 2rem;
+        cursor: pointer;
+    }
+}
+
+.sell__book {
+    &-left__input-container {
+       @include sell-input-container;
+    }
+    &-right__input-container {
+        @include sell-input-container;
+        margin-left: 8%;
+    }
+}
+.sellbook__image {
+    width: 16rem;
+    height: 20rem;
+    margin-right: 1rem;
+    @media (min-width: 1200px) and (max-width: 1250px) {
+        width: 14rem;
+    }
+    @include respond(big-desktop) {
+        width: 15rem;
+    }
+    @include respond(tab-land) {
+        width: 15rem;
+    }
+    @media(max-width: 650px) {
+        width:13rem ;
+    }
+
+}
+
+.ImageContainer {
+    margin-top: 8px;
+    width: 100%;
+    height: 280px;
+    display: inline-block;
+}
+
+.innerDiv {
+    position: relative;
+    box-sizing: border-box;
+    width: 180px;
+    height: 230px;
+    background-color: green;
+    margin-right: 16px;
+}
+.innerDiv img {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 4px solid black;
+    /* z-index: 50; */
+}
+@media (max-width: 550px) {
+    .innerDiv {
+      width: 150px;
+      height: 190px;
+    }
+    .ImageContainer {
+        height: 230px;
+        margin-left: 12%;
+    }
+  }
+
+@media (min-width: 551px) and (max-width: 1069px) {
+    .innerDiv {
+        width: 150px;
+        height: 190px;
+    }
+}
+
+@media (min-width: 1070px) and (max-width: 1160px) {
+    .innerDiv {
+    width: 160px;
+    height: 210px;
+    }
+    .ImageContainer {
+        margin-left: 0;
+    }
+}

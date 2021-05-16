@@ -1,0 +1,37 @@
+.butn {
+    border: none;
+    background-image: linear-gradient(to right bottom, var(--color-Primary-light), var(--color-Primary-dark));
+    text-transform: uppercase;
+    padding: 1.6rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #fff;
+    cursor: pointer;
+    width: 80%;
+    margin: 3rem 10%;
+    transition: all .3s;
+    border-radius: 2px;
+    position: relative;
+    transition: all .2s;
+
+    &:disabled {
+        cursor: not-allowed;
+        color: gray;
+        background-image: var(--color-Grey-dark-1);
+    }
+    &:enabled {
+        transform: translateY(4px);
+    }
+
+    &:focus {
+        outline: none;
+    }
+    &:active {
+        transform: translateY(3px);
+    }
+    &:hover:enabled {
+        transform: translateY(-2px);
+        // background-image: linear-gradient(to left top, var(--color-Primary-light), var(--color-Primary-dark));
+    }
+}

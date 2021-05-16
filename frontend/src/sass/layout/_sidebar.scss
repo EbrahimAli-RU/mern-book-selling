@@ -1,0 +1,23 @@
+.sidebar__area {
+    width: 80%;
+    margin: auto;
+    @media (max-width: 730px) {
+        width: 90%;
+    }
+    @media (max-width: 650px) {
+        width: 98%;
+    }
+    &-filter {
+        margin-top: 20%;
+        padding-bottom: 4rem;
+    }
+    & > *:not(:last-child) {
+        
+        border-bottom: 1px solid var(--color-Grey-dark-3);
+    }
+    &__title {
+        margin: 1.6rem 3.5rem;
+        font-size: 2rem;
+        font-weight: 400;
+    }
+}

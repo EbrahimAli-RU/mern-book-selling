@@ -1,0 +1,36 @@
+.input__container {
+    height: 10vh;
+    width: 90%;
+    margin: 2rem auto;
+    display: block;
+
+    p {
+        margin: 1rem 0;
+        font-size: 13px;
+    }
+    &[data-error] &__auth-input {
+        border: 1px solid red;
+        color: red;
+        background-color: white;
+    }
+
+    &[data-error]::after{
+        content: attr(data-error);
+        color: red;
+        
+        font-size: 12px;
+    }
+
+    &__auth-input {
+        width: 100%;
+        padding: .8rem .8rem;
+        font-size: 14px;
+        font-family: 'Open Sans', sans-serif;
+        border: none;
+        outline: none;
+        color: var(--color-Grey-dark-2);
+        border: 1px solid var(--color-Grey-dark-2);
+        border-radius: 4px;
+    }
+
+}

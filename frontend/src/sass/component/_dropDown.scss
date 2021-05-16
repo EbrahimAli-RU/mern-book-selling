@@ -1,0 +1,39 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+
+    &-btn {
+        background-color: transparent;
+        color: var(--color-Grey-dark-2);
+        padding: 1.6rem;
+        font-size: 1.6rem;
+        border: none;
+        cursor: pointer;
+    }
+
+    &-content {
+        right: 0;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        width: 16rem;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,0.2);
+        z-index: 100;
+
+        a {
+            color: var(--color-Grey-dark-2);
+            padding: 1.2rem 1.6rem;
+            text-decoration: none;
+            display: block;
+
+            &:hover {
+                background-color: #f1f1f1
+            }
+          }
+      }
+
+    &:hover &-content {
+        display: block;
+      }
+  }
+ 

@@ -1,0 +1,38 @@
+.wishlist {
+    &__heading {
+        text-align: center;
+        padding: 3rem 0;
+    }
+
+    &__empty {
+        @include center-thing;
+        a:hover {
+            text-decoration: none;
+        }
+
+        &-header {
+            text-align: center;
+            font-size: 2.8rem;
+            @media(max-width: 430px) {
+                font-size: 2.4rem;
+            }
+        }
+    }
+    
+}
+
+
+#continue {
+    display: block;
+    margin: auto;
+    width: 30rem;
+    background-color: white;
+}
+.spinner {
+    width: 5rem;
+    height: 5rem;
+
+    &__container {
+        @include center-thing;
+    }
+}

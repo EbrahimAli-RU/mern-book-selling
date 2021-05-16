@@ -1,0 +1,16 @@
+.error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 10rem;
+    position: fixed;
+    z-index: 100;
+    background-color: white;
+    border-radius: 2px;
+    transition: all .5s;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .2);
+    &__message {
+        padding: 2rem 5rem;
+        margin-bottom: -2px;
+    }
+}

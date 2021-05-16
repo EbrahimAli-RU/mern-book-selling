@@ -1,0 +1,17 @@
+.footer {
+    background-color: #072a48;
+    padding-top:  50px;
+    padding-bottom: 50px;
+    color: white;
+    text-align: center;
+
+    &__link {
+        color: white;
+        text-decoration: none;
+    }
+
+    &__copyright {
+        text-align: center;
+        margin-top: 6rem;
+    }
+}

@@ -1,0 +1,32 @@
+.auth__container {
+    width: 360px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 1px .2rem rgba(0,0,0, .2);
+    border-radius: 2px;
+    @media (max-width: 361px) {
+        width: 100%;
+    }
+
+    &-remember {
+        font-size: 14px;
+
+        margin: 20px 0 12px 20px;
+    }
+
+    &-forgot {
+        text-decoration: none;
+        margin-right: 30px;
+        font-size: 14px;
+        float: right;
+        color: var(--color-primary-1);
+    }
+}
+
+.auth__question {
+    text-align: end;
+    font-size: 14px;
+    margin-right: 3rem;
+}

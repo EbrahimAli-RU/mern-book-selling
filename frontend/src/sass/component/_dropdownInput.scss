@@ -1,0 +1,32 @@
+.dropdown__input {
+    display: block;
+    border: none;
+    padding: .8rem;
+    font-size: 1.7rem;
+    font-weight: 300;
+    font-family: 'Open Sans';
+    margin: 2rem auto;
+    text-transform: capitalize;
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-Grey-dark-2) ;
+    transition: all .3s;
+    &-option {
+        font-size: 1.4rem;
+        text-transform: capitalize;
+    }
+
+    &:first-child {
+        font-size: 1.8rem;
+    }
+
+    &:focus, &:hover {
+        outline: none; 
+    }
+}
+
+.filter__input__width {
+    width: 70%;
+}
+.owner__input__width {
+    width: 98%;
+}

@@ -1,0 +1,15 @@
+.auth__container-title {
+    text-align: center;
+    margin: 5rem 0 3rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 3.4rem;
+    background-image: linear-gradient(to right, var(--color-Primary-light), var(--color-Primary-dark));
+    -webkit-background-clip: text;
+    color: transparent;
+
+    &:hover {
+        transform: skewY(2deg) skewX(15deg) scale(1.1);
+        text-shadow: .5rem 1rem 2rem rgba(0,0,0, .2);
+    }
+}

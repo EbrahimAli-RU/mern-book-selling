@@ -1,0 +1,38 @@
+//UTILS
+@import 'utils/function';
+@import 'utils/mixin';
+@import 'utils/variable';
+
+//BASE
+@import 'base/reset';
+@import 'base/typography.scss';
+
+//COMPONENT
+@import 'component/_card';
+@import 'component/dropdownInput';
+@import 'component/primaryButton';
+@import 'component/error';
+@import 'component/wishliistCard';
+@import 'component/wishlist';
+@import 'component/popup';
+@import 'component/dropDown';
+@import 'component/sidedrawer';
+@import 'component/backdrop';
+//COMPONENT AUTH
+@import 'component/authInput';
+@import 'component/auth/signin';
+//COMPONENT DETAIL
+@import 'component/Detail/detailPage';
+@import 'component/Detail/photo';
+
+//COMPONENT SELL
+@import 'component/sell/input';
+
+//LAYOUT 
+@import 'layout/header';
+@import 'layout/sidebar';
+@import 'layout/footer';
+
+//PAGES
+@import 'pages/home';
+@import 'pages/sellbook'
