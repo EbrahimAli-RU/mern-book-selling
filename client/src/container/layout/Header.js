@@ -24,7 +24,7 @@ const Header = (props) => {
             axiosWithAuth().get(`/user/wishlist/${props.userId}`).then(res => {
                 setNumberOfWishList(res.data.data.length)
             }).catch(err => {
-                console.log(err)
+                console.log(err.response)
             })
         }
     }, [props.userId, props.wishlist])
