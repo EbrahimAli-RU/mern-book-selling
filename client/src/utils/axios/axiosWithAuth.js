@@ -6,7 +6,7 @@ export const getToken = () => {
 
 export const axiosWithAuth = () => {
     const instance = axios.create({
-        baseURL: `http://localhost:8000/api/v1`,
+        baseURL: `https://mern-book-selling.herokuapp.com/api/v1`,
     })
 
     instance.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`
