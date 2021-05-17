@@ -13,13 +13,23 @@ const devEnvironment = (err, res) => {
 const prodEnvironment = (err, res) => {
     if (err.isOperational) {
         res.status(err.statusCode).json({
+            // status: err.status,
+            // message: err.message
+            name: err.name,
             status: err.status,
-            message: err.message
+            message: err.message,
+            error: err,
+            Stack: err.stack
         })
     } else {
         res.status(err.statusCode).json({
-            status: 'error',
-            message: 'Something went wrong.'
+            // status: 'error',
+            // message: 'Something went wrong.'
+            name: err.name,
+            status: err.status,
+            message: err.message,
+            error: err,
+            Stack: err.stack
         })
     }
 
