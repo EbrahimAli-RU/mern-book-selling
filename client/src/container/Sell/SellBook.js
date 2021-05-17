@@ -48,7 +48,6 @@ const SellBook = (props) => {
     }
 
     const toggle = (tab) => {
-        console.log(bookData)
         toggleTab(toggleState, tab, setToggleState, bookData, '/book', 'post', props, setIsError, setLoading)
     }
 

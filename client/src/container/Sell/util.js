@@ -30,7 +30,6 @@ export const toggleTab = (toggleState, tab, setToggleState, bookData, url, metho
         setToggleState(currrentTab - 1)
     else {
         if (toggleState >= 3) {
-            console.log(toggleState)
             submitBookHandler(bookData, url, method, props, setIsError, setLoading)
         } else {
             setToggleState(currrentTab + 1)
@@ -66,10 +65,11 @@ export const submitBookHandler = (bookData, url, submitMethode, props, setIsErro
         url: url,
         data: fd
     }).then(res => {
-        console.log(props)
+        console.log(res)
         props.history.push('/own-book')
         setLoading(false)
     }).catch(err => {
+        console.log(err.response)
         setLoading(false)
         setIsError({ error: true, message: err.response.data.message.split(',')[0] })
         setTimeout(() => { setIsError({ error: false, message: '' }) }, 1000)

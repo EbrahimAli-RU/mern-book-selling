@@ -9,9 +9,9 @@ const Photo = (props) => {
             <OwlCarousel items={1}
                 className="owl-theme"
                 loop nav center dots={false} autoPlay={true} autoplayHoverPause={true}>
-                <div className='carousel__container'><img src={`http://localhost:8000/${props.data.coverphoto}`} /></div>
+                <div className='carousel__container'><img src={`${props.data.coverphoto}`} /></div>
                 {props.data.photos.map(el =>
-                    <div className='carousel__container' key={el}><img src={`http://localhost:8000/${el}`} /></div>)}
+                    <div className='carousel__container' key={el}><img src={`${el}`} /></div>)}
             </OwlCarousel>
         </div>
     )
