@@ -48,19 +48,19 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.static(path.join(__dirname + '/public/CoverPhoto')));
 app.use(express.static(path.join(__dirname + '/public/book')));
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-    // app.get('*', (req, res) => {
-    //     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-    // });
-}
-
 //ROUTES
 app.use('/api/v1/book', bookRoute);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/filter', filterRoute);
 
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    });
+}
 //ERROR HANDLER
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this Server`, 404));
