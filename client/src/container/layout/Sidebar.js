@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../../component/dropodownInput/Input'
 import { connect } from 'react-redux'
 import * as action from '../../redux/actions/book'
@@ -24,7 +24,7 @@ const SideBar = (props) => {
         setFilterBy(newFilterBy)
     }
 
-    useState(() => { inUseEffect(filterData, setFilterData) }, [])
+    useEffect(() => { inUseEffect(filterData, setFilterData) }, [])
 
     const sortOption = ['High to Low', 'Low to High']
     return (
