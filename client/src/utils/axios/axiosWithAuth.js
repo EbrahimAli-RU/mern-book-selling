@@ -6,7 +6,7 @@ export const getToken = () => {
 
 export const axiosWithAuth = () => {
     const instance = axios.create({
-        baseURL: `/api/v1`,
+        baseURL: `http://localhost:8000/api/v1`,
     })
 
     instance.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`

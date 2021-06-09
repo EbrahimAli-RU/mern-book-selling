@@ -3,7 +3,7 @@ const Card = ({ title, price, photo, id, handler }) => {
         <div className='book__card'>
             <div className='book__card__top'>
                 <div className='book__card__top-box'>
-                    <img src={photo} alt='BOOK' className='book__card__top-box-photo' />
+                    <img src={`http://localhost:8000/${photo}`} alt='BOOK' className='book__card__top-box-photo' />
                 </div>
                 <div className='book__card__top-detail'>
                     <h5 className='book__title'>{title.length < 45 ? `${title}` : `${title.substr(0, 42)}...`}</h5>

@@ -10,9 +10,9 @@ dotenv.config({ path: './config.env' });
 const app = require('./app')
 const mongoose = require('mongoose');
 
-//Connect database
+//Connect database process.env.DATABASE_LOCAL
 const url = `mongodb+srv://ebrahim:qtp8d4ep@book-selling.67wno.mongodb.net/book-selling?retryWrites=true&w=majority`
-mongoose.connect(url, {
+mongoose.connect(process.env.DATABASE_LOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,

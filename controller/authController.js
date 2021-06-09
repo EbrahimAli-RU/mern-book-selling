@@ -18,17 +18,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     if (checkUser) {
         return next(new AppError('This Email is in used! Please try another one', 404))
     }
-    console.log(req.body)
     const user = await User.create(req.body);
     const token = signToken(user._id);
-    const cookieOption = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRESIN * 24 * 60 * 60 * 1000),
-        secure: true,
-        httpOnly: true
-    }
-    if (process.env.ENVIRONMENT === 'development') cookieOption.secure = false;
-    res.cookie('jwt', token, cookieOption)
-    console.log(res)
     res.status(201).json({
         status: 'success',
         data: {
@@ -50,13 +41,6 @@ exports.signin = catchAsync(async (req, res, next) => {
         return next(new AppError(`Invalid email or Password`, 401));
     }
     const token = signToken(user._id)
-    const cookieOption = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRESIN * 24 * 60 * 60 * 1000),
-        // secure: false,
-        httpOnly: false
-    }
-    if (process.env.ENVIRONMENT === 'development') cookieOption.secure = false
-    res.cookie('jwt', token, cookieOption)
     res.status(201).json({
         status: 'success',
         data: {
