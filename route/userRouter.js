@@ -6,7 +6,7 @@ const authController = require('../controller/authController');
 const userController = require('../controller/userController');
 
 router.use('/wishlist', wishlistRouter)
-router.use(authController.test)
+// router.use(authController.test)
 router.route('/signup').post(authController.signup);
 router.post('/signin', authController.signin);
 router.post('/forgotPassword', authController.forgotPassword);

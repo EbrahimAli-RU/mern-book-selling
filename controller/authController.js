@@ -78,10 +78,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     next();
 })
 
-exports.test = catchAsync(async (req, res, next) => {
-    res.locals.namefg = 'Ebrahim'
-    next();
-})
+// exports.test = catchAsync(async (req, res, next) => {
+//     res.locals.namefg = 'Ebrahim'
+//     next();
+// })
 
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {

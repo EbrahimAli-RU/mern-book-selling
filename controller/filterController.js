@@ -20,3 +20,24 @@ exports.getFilterData = catchAsync(async (req, res, next) => {
     })
 
 })
+
+exports.updateFilter = catchAsync(async (req, res, next) => {
+    console.log(req.params.filterId)
+    const data = await Filter.findByIdAndUpdate(req.params.filterId, req.body,
+        { new: true, runValidators: true });
+
+    res.status(200).json({
+        status: 'success',
+        data
+    })
+
+})
+exports.deleteFilter = catchAsync(async (req, res, next) => {
+    const data = await Filter.findByIdAndDelete(req.params.filterId);
+
+    res.status(200).json({
+        status: 'success',
+        data
+    })
+
+})
