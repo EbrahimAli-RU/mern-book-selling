@@ -46,7 +46,7 @@ const Main = (props) => {
             gBook = props.books.slice(0, 10)
         }
         books = gBook.map(el =>
-            <Card photo={el.coverphoto}
+            <Card photo={el.coverphoto.data}
                 id={el._id} key={el._id}
                 title={el.bookName}
                 price={el.price}

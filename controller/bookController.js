@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const {GridFsStorage} = require('multer-gridfs-storage');
 
 const Book = require('./../model/bookModel');
 const catchAsync = require('./../utils/catchAsync');
@@ -28,26 +29,13 @@ exports.uploadBookPhotos = upload.fields([
     { name: 'photos', maxCount: 3 }
 ])
 const coverPhotoUploader = async (req) => {
-    req.body.coverphoto = `Coverphoto-${req.user.id}-${Date.now()}.jpeg`
-    await sharp(req.files.coverphoto[0].buffer)
-        .resize(400, 600)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/book/${req.body.coverphoto}`);
+    req.body.coverphoto = req.files.coverphoto[0].buffer
 }
 
 const otherPhotoUploader = async (req) => {
     req.body.photos = [];
     await Promise.all(req.files.photos.map(async (el, i) => {
-        const fileName = `otherBookphoto-${req.user.id}-${Date.now()}-${i}.jpeg`
-        await sharp(req.files.photos[i].buffer)
-            .resize(400, 600)
-            .toFormat('jpeg')
-            .jpeg({ quality: 90 })
-            .toFile(`public/book/${fileName}`);
-
-        req.body.photos.push(fileName);
-        // req.body.photos = fileName
+        req.body.photos.push(req.files.photos[i].buffer);
     }))
 }
 
@@ -79,7 +67,6 @@ exports.resizeBookPhotoForUpdate = catchAsync(async (req, res, next) => {
 
 exports.createBook = catchAsync(async (req, res, next) => {
     req.body.owner = req.user.id
-    console.log(req.body)
     const book = await Book.create(req.body);
     res.status(201).json({
         status: 'success',
@@ -119,7 +106,6 @@ exports.deleteBook = catchAsync(async (req, res, next) => {
 exports.updateBook = catchAsync(async (req, res, next) => {
     const book = await Book.findByIdAndUpdate(req.params.bookId, req.body,
         { new: true, runValidators: true });
-    console.log(req.body)
     if (!book) {
         return next(new AppError(`Page not found`, 404));
     }

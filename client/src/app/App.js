@@ -1,5 +1,5 @@
 import '../sass/main.scss'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import Signin from '../container/auth/SignIn'
 import SignUp from '../container/auth/SignUp'
@@ -30,6 +30,7 @@ function App(props) {
 
   let routes = (
     <Switch>
+     
       <Route path='/detail/:id' exact component={Detail} />
       <Route path='/sell-book' component={SellBook} />
       <Route path='/user/login' component={Signin} />

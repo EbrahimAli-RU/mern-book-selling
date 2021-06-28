@@ -17,6 +17,7 @@ router.patch('/updateMe',
     userController.uploadPhoto,
     userController.resizeUserPhoto,
     userController.updateMe);
+router.get('/', authController.protect, authController.restrictTo('admin'), authController.getAllUser)
 
 
 module.exports = router;

@@ -16,7 +16,7 @@ const DetailPage = () => {
     };
     useEffect(() => {
         axios.get(`/book/${bookId}`).then(res => {
-            console.log(res.data.data.bookName)
+            console.log(res.data.data)
             setDetailData(res.data.data)
         }).catch(err => {
             console.log(err.response)

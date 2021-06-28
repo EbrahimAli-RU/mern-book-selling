@@ -72,14 +72,12 @@ const bookSchema = new mongooose.Schema({
         required: [true, `Price is required`],
     },
     coverphoto: {
-        type: String,
-        default: 'default.jpeg',
+        type: Buffer,
         required: [true, `This field is required`],
     },
     owner: String,
     photos: [{
-        type: String,
-        default: 'default.jpeg',
+        type: Buffer,
         required: [true, `This field is required`],
     }],
     slug: String

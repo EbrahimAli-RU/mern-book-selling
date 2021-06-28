@@ -13,8 +13,6 @@ const devEnvironment = (err, res) => {
 const prodEnvironment = (err, res) => {
     if (err.isOperational) {
         res.status(err.statusCode).json({
-            // status: err.status,
-            // message: err.message
             name: err.name,
             status: err.status,
             message: err.message,

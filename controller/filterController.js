@@ -22,7 +22,6 @@ exports.getFilterData = catchAsync(async (req, res, next) => {
 })
 
 exports.updateFilter = catchAsync(async (req, res, next) => {
-    console.log(req.params.filterId)
     const data = await Filter.findByIdAndUpdate(req.params.filterId, req.body,
         { new: true, runValidators: true });
 
