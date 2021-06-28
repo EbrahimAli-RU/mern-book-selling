@@ -27,7 +27,7 @@ const limiter = rateLimit({
 
 app.use('/api', limiter)
 //BODY PARSER, READING DATA FROM BODY
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '16mb' }));
 app.use(express.urlencoded({ extended: true }))
 
 //DATA SANITIZE AGAINST NOSQL QUERY INJECTION
@@ -37,7 +37,7 @@ app.use(mongoSanitize())
 app.use(xss())
 
 //CORE
-app.use(cors());
+app.use(cors({origin: ['http://localhost:3000', 'https://mern-book-selling.herokuapp.com/']}));
 app.use(cookieParser())
 
 //PREVENT PARAMETER POLUTION
