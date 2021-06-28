@@ -4,7 +4,7 @@ import Icon from '../assets/img/sprite.svg'
 const WishlistCard = ({ name, price, photo, id, handler, ownId, show }) => {
     return (
         <div className='wishlist__content'>
-            <img src={`http://localhost:8000/${photo}`} alt='book' className='wishlist__photo' />
+            <img src={`data:image/png;base64, ${new Buffer.from(photo).toString("base64")}`} alt='book' className='wishlist__photo' />
             <div className='wishlist__info'>
                 <p>{name.length < 45 ? `${name}` : `${name.substr(0, 42)}...`}</p>
                 <p>{price}</p>
