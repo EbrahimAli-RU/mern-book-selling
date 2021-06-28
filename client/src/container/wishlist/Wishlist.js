@@ -61,7 +61,7 @@ const Wishlist = (props) => {
                 ownId={el._id}
                 id={el.bookId}
                 price={el.price}
-                photo={el.photo}
+                photo={el.photo.data}
                 show={false} />)
     } else if (wishlistData.wishlist.length === 0 && wishlistData.loading === false) {
         wishLists = <div className='wishlist__empty'>

@@ -58,7 +58,7 @@ const OwnBook = (props) => {
                 id={el._id}
                 ownId={el._id}
                 price={el.price}
-                photo={el.coverphoto}
+                photo={el.coverphoto.data}
                 show />)
 
     } else if (wishlistData.wishlist.length === 0 && wishlistData.loading === false) {
