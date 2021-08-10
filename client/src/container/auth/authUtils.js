@@ -1,7 +1,12 @@
 export const validate = (obj, setDisabled) => {
     let flag = 0
     for (let key in obj) {
-        obj[key].value !== '' && !obj[key].error ? flag = 1 : flag = 0
+        if (obj[key].value !== '' && obj[key].error === false) {
+            flag = 1
+        } else {
+            flag = 0
+            break;
+        }
     }
     flag === 1 ? setDisabled(false) : setDisabled(true)
 }

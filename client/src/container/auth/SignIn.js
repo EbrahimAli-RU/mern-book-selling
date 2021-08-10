@@ -57,7 +57,7 @@ const SignIn = (props) => {
                 name='password'
                 placeholder='Password' />
             <Link className='auth__container-forgot' to='/'> forgot password?</Link>
-            <Button handler={loginHandler} buttonText='log in' />
+            <Button handler={loginHandler} buttonText='log in' isDisable={disabled || props.loading} />
             <p className='auth__question'>New Member? <Link to='/user/signup'> Sign up</Link></p>
         </div>
     )

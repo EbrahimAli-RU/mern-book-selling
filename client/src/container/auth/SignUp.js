@@ -17,6 +17,13 @@ const SignUp = (props) => {
         validate(signupData, setDisabled)
         setSignupData(newData)
     }
+    //  const validate = (obj, setDisabled) => {
+    //     let flag = 0
+    //     for (let key in obj) {
+    //         obj[key].value !== '' && !obj[key].error ? flag = 1 : flag = 0
+    //     }
+    //     flag === 1 ? setDisabled(false) : setDisabled(true)
+    // }
 
     const signupHandler = (e) => {
         e.preventDefault();
@@ -51,7 +58,7 @@ const SignUp = (props) => {
             <Input type='text' value={signupData.email.value} error={signupData.email.error} message={signupData.email.message} handler={inputHandler} name='email' placeholder='E-Mail' />
             <Input type='password' value={signupData.password.value} error={signupData.password.error} message={signupData.password.message} handler={inputHandler} name='password' placeholder='Password' />
             <Input type='password' value={signupData.confirmPassword.value} error={signupData.confirmPassword.error} message={signupData.confirmPassword.message} handler={inputHandler} name='confirmPassword' placeholder='Confirm Password' />
-            <Button handler={signupHandler} buttonText='Sign up' />
+            <Button handler={signupHandler} buttonText='Sign up' isDisable={disabled || props.loading} />
             <p className='auth__question'>Already have Account? <Link to='/user/login'> login</Link></p>
 
         </div>

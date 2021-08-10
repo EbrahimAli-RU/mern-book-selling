@@ -11,7 +11,6 @@ export const filter = {
     area: '',
     sort: ''
 }
-
 export const checkValue = (name, value, newFilterBy) => {
 
     let valueCopy = value
@@ -90,7 +89,6 @@ export const filterHandler = (name, value, filterData, setFilterData) => {
 
 export const inUseEffect = (filterData, setFilterData) => {
     axios.get(`/filter?area=region&filterType=region`).then(res => {
-        console.log(res)
         let newFilterData = { ...filterData }
         newFilterData['region'] = res.data.data[0].allArea
         setFilterData(newFilterData)
