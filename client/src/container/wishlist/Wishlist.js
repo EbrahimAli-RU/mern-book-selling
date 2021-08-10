@@ -27,16 +27,13 @@ const Wishlist = (props) => {
     const deleteHandler = () => {
         axiosWithAuth().delete(`/user/wishlist/${deleteId}`).then(res => {
             props.handleWishlist();
-            console.log(res.data.data)
             let copyWishlistData = { ...wishlistData }
             copyWishlistData.wishlist = copyWishlistData.wishlist.filter(el => el._id !== deleteId);
             copyWishlistData.loading = false
             setWishlistData(copyWishlistData)
-            console.log(copyWishlistData);
             setDeleteId(null)
             setShowPopup(false)
         }).catch(err => {
-            console.log(err.response)
             setDeleteId(null)
             setShowPopup(false)
         })
@@ -56,12 +53,12 @@ const Wishlist = (props) => {
     if (wishlistData.wishlist.length > 0) {
         wishLists = wishlistData.wishlist.map(el =>
             <Card key={el._id}
-                name={el.title}
+                name={el.bookId.bookName}
                 handler={(id) => openPopupHandler(id)}
                 ownId={el._id}
-                id={el.bookId}
-                price={el.price}
-                photo={el.photo.data}
+                id={el.bookId._id}
+                price={el.bookId.price}
+                photo={el.bookId.coverphoto}
                 show={false} />)
     } else if (wishlistData.wishlist.length === 0 && wishlistData.loading === false) {
         wishLists = <div className='wishlist__empty'>
