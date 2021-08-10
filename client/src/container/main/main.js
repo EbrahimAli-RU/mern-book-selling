@@ -24,7 +24,8 @@ const Main = (props) => {
     useEffect(() => { props.searchBookHandler(props.searchData) }, [])
 
     const addToWishlistHandler = (id, photo, title, price) => {
-        axiosWithAuth().post('/user/wishlist', { photo, title, price, bookId: id }).then(res => {
+        axiosWithAuth().post('/user/wishlist', { bookId: id }).then(res => {
+            console.log(res.data.data)
             props.handleWishlist();
             setIsError({ error: true, message: res.data.data.message })
             setTimeout(() => { setIsError({ error: false, message: '' }) }, 1000)

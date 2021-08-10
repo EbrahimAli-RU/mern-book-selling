@@ -17,7 +17,6 @@ const Header = (props) => {
         props.searchBookHandler(e.target.value, props.url)
     }
     useEffect(() => {
-        console.log('HGFDFGHj')
         if (window.location.pathname.split('/')[1] === '')
             setShowSearchBar(true)
         if (props.userId) {

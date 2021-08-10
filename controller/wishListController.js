@@ -18,8 +18,11 @@ exports.addToWishList = catchAsync(async (req, res, next) => {
 
 exports.getWishList = catchAsync(async (req, res, next) => {
 
-    const wishLists = await WishList.find({ user: req.params.userId });
-
+    const wishLists = await WishList.find({ user: req.params.userId }).populate({
+        path: 'bookId',
+        select: 'bookName _id price coverphoto'
+    });
+    console.log(wishLists)
     res.status(200).json({
         status: 'success',
         data: wishLists

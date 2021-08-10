@@ -5,7 +5,19 @@ import { userInputHandler } from '../../utils/inputHandler'
 import * as action from '../../redux/actions/auth'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { signinObj, validate } from './authUtils'
+import { validate } from './authUtils'
+const signinObj = {
+    email: {
+        value: '',
+        error: false,
+        message: ''
+    },
+    password: {
+        value: '',
+        error: false,
+        message: ''
+    },
+}
 
 const SignIn = (props) => {
     const [loginData, setLoginData] = useState(signinObj)
@@ -19,7 +31,6 @@ const SignIn = (props) => {
     const loginHandler = (e) => {
         e.preventDefault();
         props.submitHandler({ email: loginData.email.value, password: loginData.password.value }, '/user/signin', props)
-        console.log(loginData);
     }
     if (props.error && props.signin) {
         console.log(props.error.message)
@@ -45,9 +56,8 @@ const SignIn = (props) => {
                 handler={inputHandler}
                 name='password'
                 placeholder='Password' />
-            {/* <input className='auth__container-remember' type='checkbox' /> Remember me */}
             <Link className='auth__container-forgot' to='/'> forgot password?</Link>
-            <Button handler={loginHandler} buttonText='log in' isDisable={props.loading || disabled} />
+            <Button handler={loginHandler} buttonText='log in' />
             <p className='auth__question'>New Member? <Link to='/user/signup'> Sign up</Link></p>
         </div>
     )

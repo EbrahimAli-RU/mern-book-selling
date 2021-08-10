@@ -7,7 +7,7 @@ const Input = (props) => {
                 value={props.value}
                 name={props.name}
                 onChange={props.handler}
-                placeholder={props.placeholder} />
+                placeholder={props.placeholder} autoComplete="off" />
         </div>
     )
 }

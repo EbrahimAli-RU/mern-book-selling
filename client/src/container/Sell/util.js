@@ -65,11 +65,9 @@ export const submitBookHandler = (bookData, url, submitMethode, props, setIsErro
         url: url,
         data: fd
     }).then(res => {
-        console.log(res)
         props.history.push('/own-book')
         setLoading(false)
     }).catch(err => {
-        console.log(err.response)
         setLoading(false)
         setIsError({ error: true, message: err.response.data.message.split(',')[0] })
         setTimeout(() => { setIsError({ error: false, message: '' }) }, 1000)

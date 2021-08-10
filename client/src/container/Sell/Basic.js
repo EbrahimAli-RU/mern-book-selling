@@ -40,7 +40,7 @@ const Basic = (props) => {
                 </div> </> : <>
                 <div className='form__group' style={{ display: 'inline-block', marginRight: '1rem' }}>
                     {coverphoto1 !== '' ? <img className='sellbook__image' src={coverphoto1} alt='cover' /> :
-                        <img className='sellbook__image' src={`http://localhost:8000/${coverphoto}`} alt='cover' />}
+                        <img className='sellbook__image' src={`data:image/png;base64, ${new Buffer.from(coverphoto).toString("base64")}`} alt='cover' />}
                     <br />
                     <UploadImage
                         buttonTitle='Cover photo'
@@ -53,8 +53,8 @@ const Basic = (props) => {
                         {photos1.map(el =>
                             <img key={el} className='sellbook__image' src={el} alt='other' />)}</> :
                         <>
-                            {photos.map(el =>
-                                <img key={el} className='sellbook__image' src={`http://localhost:8000/${el}`} alt='other' />)}
+                            {photos.map((el, i) =>
+                                <img key={i} className='sellbook__image' src={`data:image/png;base64, ${new Buffer.from(el).toString("base64")}`} alt='other' />)}
                         </>}
                     <br />
                     <UploadImage

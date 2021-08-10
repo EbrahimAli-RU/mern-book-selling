@@ -6,18 +6,18 @@ const wishListSchema = new mongoose.Schema({
         ref: 'user',
         required: true
     },
-    title: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    photo: {
-        type: String,
-        required: true
-    },
+    // title: {
+    //     type: String,
+    //     required: true,
+    // },
+    // price: {
+    //     type: Number,
+    //     required: true
+    // },
+    // photo: {
+    //     type: String,
+    //     required: true
+    // },
     bookId: {
         type: mongoose.Schema.ObjectId,
         ref: 'book',

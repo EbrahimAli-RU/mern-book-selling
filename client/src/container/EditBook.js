@@ -6,6 +6,7 @@ import { Spinner } from 'reactstrap'
 import UI from './Sell/UI'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
+import { UncontrolledAlert } from 'reactstrap'
 
 const data = {
     region: [],
@@ -25,6 +26,7 @@ const EditBook = (props) => {
     const [id, setId] = useState(null)
     const [loading, setLoading] = useState(true)
     const [loadingUpdate, setLoadingUpdate] = useState(false)
+    const [error, setError] = useState({ error: false, message: '' })
 
     const getLocation = (name, value) => {
         let selectFil = ''
@@ -44,7 +46,8 @@ const EditBook = (props) => {
             }
             setFilterData(newFilterData)
         }).catch(err => {
-            console.log(err.response)
+            setError({ error: true, message: err.response.data.message })
+            // console.log(err.response)
         })
     }
 
@@ -64,13 +67,17 @@ const EditBook = (props) => {
                 }
                 bookData[key] = res.data.data[key]
             }
-            console.log(bookData)
             setLoading(false)
             setId(res.data.data._id)
         }).catch(err => {
+            setError({ error: true, message: err.response.data.message })
             setLoading(false)
-            console.log(err)
         })
+        return () => {
+
+            setLoading(true)
+            setId(null)
+        }
     }, [])
 
     const handleInput = (e) => {
@@ -83,12 +90,17 @@ const EditBook = (props) => {
 
     return (
         <>
+            <div className={error.error ? 'displayBlock' : 'dispalyNone'}>
+                <UncontrolledAlert color="danger">
+                    {error.message}
+                </UncontrolledAlert>
+            </div>
             <Header />
             {loadingUpdate ? <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '200', left: '0', top: '0', backgroundColor: 'rgba(0,0,0,.2' }}>
                 <div className='spinner__container'><Spinner color='danger' className='spinner' /></div>
             </div> : null
             }
-            {loading ? <div style={{ width: '100%', height: '80vh' }}>
+            {loading || error.error ? <div style={{ width: '100%', height: '80vh' }}>
                 <div className='spinner__container'><Spinner color='primary' className='spinner' /></div>
             </div> :
                 <UI

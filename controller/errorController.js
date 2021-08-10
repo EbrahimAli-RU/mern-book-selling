@@ -13,11 +13,8 @@ const devEnvironment = (err, res) => {
 const prodEnvironment = (err, res) => {
     if (err.isOperational) {
         res.status(err.statusCode).json({
-            name: err.name,
             status: err.status,
             message: err.message,
-            error: err,
-            Stack: err.stack
         })
     } else {
         res.status(err.statusCode).json({
@@ -61,6 +58,11 @@ const expireTokenHandler = err => {
     return new AppError(`You are not logged in, please login again!`, 401);
 }
 
+const handleCastErrorDB = err => {
+    const message = `Invalid ${err.path}: ${err.value}.`;
+    return new AppError(message, 400);
+};
+
 module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
@@ -70,6 +72,7 @@ module.exports = (err, req, res, next) => {
     }
     if (process.env.NODE_ENV === 'production') {
 
+        if (err.name === 'CastError') err = handleCastErrorDB(err);
         if (err.code === 11000) {
             console.log('11000')
             err = duplicateKeyHandler(err)
