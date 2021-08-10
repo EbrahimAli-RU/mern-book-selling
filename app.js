@@ -37,7 +37,7 @@ app.use(mongoSanitize())
 app.use(xss())
 
 //CORE
-app.use(cors({ origin: ['http://localhost:3001', 'https://mern-book-selling.herokuapp.com/'] }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://mern-book-selling.herokuapp.com/'] }));
 app.use(cookieParser())
 
 //PREVENT PARAMETER POLUTION
