@@ -65,10 +65,10 @@ module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
 
-    if (process.env.ENVIRONMENT === 'development') {
+    if (process.env.NODE_ENV === 'development') {
         devEnvironment(err, res);
     }
-    if (process.env.ENVIRONMENT === 'production') {
+    if (process.env.NODE_ENV === 'production') {
 
         if (err.code === 11000) {
             console.log('11000')

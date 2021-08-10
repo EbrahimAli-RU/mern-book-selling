@@ -3,7 +3,6 @@ import SellInput from './Input'
 import UploadImage from './UploadImage'
 const Basic = (props) => {
     const { bookName, authorName, coverphoto, coverphoto1, photos, photos1 } = props.values
-    console.log(photos, photos1)
     return (
         <>
             <SellInput type='text'

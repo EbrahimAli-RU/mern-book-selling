@@ -5,27 +5,34 @@ import Book from './Book'
 import Owner from './Owner'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
+import { Spinner, Alert, UncontrolledAlert } from 'reactstrap'
 
 const DetailPage = () => {
     const bookId = window.location.pathname.split('/')[2];
     const [detailData, setDetailData] = useState(null)
     const [toggleState, setToggleState] = useState(1);
+    const [error, setError] = useState({ error: false, message: '' })
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
     useEffect(() => {
         axios.get(`/book/${bookId}`).then(res => {
-            console.log(res.data.data)
             setDetailData(res.data.data)
         }).catch(err => {
-            console.log(err.response)
+            setError({ error: true, message: err.response.data.message })
         })
     }, [])
 
     return (
         <>
+            <div className={error.error ? 'displayBlock' : 'dispalyNone'}>
+                <UncontrolledAlert color="danger">
+                    {error.message}
+                </UncontrolledAlert>
+            </div>
             <Header />
+
             <div className='detailPage__content'>
                 <div className='detailPage__nav__wrapper'>
                     <div className='detailPage__nav'>
@@ -48,7 +55,7 @@ const DetailPage = () => {
                             <Book data={detailData} /> </div>
                         <div className={toggleState === 3 ? 'detailPage__container__content active-content' : 'detailPage__container__content'}>
                             <Owner data={detailData} /> </div>
-                    </div> : null}
+                    </div> : <Spinner style={{ margin: 'auto', width: '3rem', height: '3rem' }} color="info" />}
             </div>
             <Footer />
         </>
