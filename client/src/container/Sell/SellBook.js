@@ -6,6 +6,8 @@ import { Spinner } from 'reactstrap'
 import { withRouter } from 'react-router'
 import Header from '../layout/Header'
 import Footer from '../layout/Footer'
+import { useSelector } from 'react-redux'
+
 const data = {
     region: [],
     city: [],
@@ -23,6 +25,14 @@ const SellBook = (props) => {
     const [isError, setIsError] = useState(errorData)
     const [isDisabled, setIsDisabled] = useState(true)
     const [loading, setLoading] = useState(false)
+    const token = useSelector(state => state.auth.token)
+
+    const body = (
+        <div className='check_auth'>
+            <p className='check_auth__title'>You are not logged in please log in and come back</p>
+            <a href='/user/login'>Login</a>
+        </div>
+    )
 
     const validate = (e) => {
         let { name, value } = e.target
@@ -54,6 +64,8 @@ const SellBook = (props) => {
     return (
         <>
             <Header />
+        {token === null ? <> {body}</> :
+                <>
             {loading ? <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '200', left: '0', top: '0', backgroundColor: 'rgba(0,0,0,.2' }}>
                 <div className='spinner__container'><Spinner color='danger' className='spinner' /></div>
             </div> : null
@@ -68,6 +80,8 @@ const SellBook = (props) => {
                 toggleTab={(tab) => toggle(tab)}
                 isDisabled={isDisabled} />
             <Footer />
+                    </>
+            }
         </>
     )
 }
