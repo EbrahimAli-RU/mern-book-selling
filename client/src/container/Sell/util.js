@@ -69,7 +69,7 @@ export const submitBookHandler = (bookData, url, submitMethode, props, setIsErro
         setLoading(false)
     }).catch(err => {
         setLoading(false)
-        setIsError({ error: true, message: err.response.data.message.split(',')[0] })
+        setIsError({ error: true, message: err.response.data.message })
         setTimeout(() => { setIsError({ error: false, message: '' }) }, 1000)
     })
 }
